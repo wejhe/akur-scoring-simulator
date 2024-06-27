@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AKUR Scoring</title>
+</head>
+<body onload="initialize()">
+    <script src="index.js"></script>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            text-align: center;
+        }
+
+        .fixed-table {
+            background-color: blue;
+            color: white;
+            position: fixed;
+            top: 8px;
+            right: 8px;
+            width: 500px;
+            height: 100px;
+        }
+
+        .fixed-table th, .fixed-table td {
+            font-size: larger;
+        }
+    </style>
+    <table class="fixed-table">
+        <thead>
+            <tr>
+                <th scope="col">Skor Akhir</th>
+                <th scope="col">Persentase</th>
+                <th scope="col">Profil Risiko</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td id="skorAkhir"></td>
+                <td id="persentase"></td>
+                <td id="profilRisiko"></td>
+            </tr>
+        </tbody>
+    </table>
+    <table>
+        <thead>
+            <tr>
+                <th scope="col">COSO</th>
+                <th scope="col">Kuesioner</th>
+                <th scope="col">Tingkat Risiko</th>
+                <th scope="col">Aktivitas</th>
+                <th scope="col">
+                    Status<br>
+                    <button onclick="checkAll()">Check All</button>
+                    <button onclick="uncheckAll()">Uncheck</button>
+                </th>
+                <th scope="col">Temp</th>
+                <th scope="col">Bukti</th>
+                <th scope="col">Final</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!--COSO11-->
+            <tr>
+                <td rowspan="21">1</td>
+                <td rowspan="3">1</td>
+                <td id="risk11" rowspan="3">M</td>
+                <td id="activity111">1</td>
+                <td><input id="status111" type="checkbox" onchange="statusChange('111')"></td>
+                <td id="temp111"></td>
+                <td rowspan="3">
+                    <select id="bukti11" onchange="buktiChange('11')" hidden>
+                        <option value="100">KC</option>
+                        <option value="75">KTC</option>
+                        <option value="25">TK</option>
+                    </select>
+                </td>
+                <td rowspan="3" id="final11"></td>
+            </tr>
+            <tr>
+                <td id="activity112">2</td>
+                <td><input id="status112" type="checkbox" onchange="statusChange('112')"></td>
+                <td id="temp112"></td>
+            </tr>
+            <tr>
+                <td id="activity113">3</td>
+                <td><input id="status113" type="checkbox" onchange="statusChange('113')"></td>
+                <td id="temp113"></td>
+            </tr>
+            <!--COSO12-->
+            <tr>
+                <td rowspan="3">2</td>
+                <td id="risk12" rowspan="3">M</td>
+                <td id="activity121">1</td>
+                <td><input id="status121" type="checkbox" onchange="statusChange('121')"></td>
+                <td id="temp121"></td>
+                <td rowspan="3">
+                    <select id="bukti12" onchange="buktiChange('12')" hidden>
+                        <option value="100">KC</option>
+                        <option value="75">KTC</option>
+                        <option value="25">TK</option>
+                    </select>
+                </td>
+                <td rowspan="3" id="final12"></td>
+            </tr>
+            <tr>
+                <td id="activity122">2</td>
+                <td><input id="status122" type="checkbox" onchange="statusChange('122')"></td>
+                <td id="temp122"></td>
+            </tr>
+            <tr>
+                <td id="activity123">3</td>
+                <td><input id="status123" type="checkbox" onchange="statusChange('123')"></td>
+                <td id="temp123"></td>
+            </tr>
+            <!--COSO13-->
+            <tr>
+                <td rowspan="3">3</td>
+                <td id="risk13" rowspan="3">M</td>
+                <td id="activity131">1</td>
+                <td><input id="status131" type="checkbox" onchange="statusChange('131')"></td>
+                <td id="temp131"></td>
+                <td rowspan="3">
+                    <select id="bukti13" onchange="buktiChange('13')" hidden>
+                        <option value="100">KC</option>
+                        <option value="75">KTC</option>
+                        <option value="25">TK</option>
+                    </select>
+                </td>
+                <td rowspan="3" id="final13"></td>
+            </tr>
+            <tr>
+                <td id="activity132">2</td>
+                <td><input id="status132" type="checkbox" onchange="statusChange('132')"></td>
+                <td id="temp132"></td>
+            </tr>
+            <tr>
+                <td id="activity133">3</td>
+                <td><input id="status133" type="checkbox" onchange="statusChange('133')"></td>
+                <td id="temp133"></td>
+            </tr>
+            <!--COSO14-->
+            <tr>
+                <td rowspan="3">4</td>
+                <td id="risk14" rowspan="3">L</td>
+                <td id="activity141">1</td>
+                <td><input id="status141" type="checkbox" onchange="statusChange('141')"></td>
+                <td id="temp141"></td>
+                <td rowspan="3">
+                    <select id="bukti14" onchange="buktiChange('14')" hidden>
+                        <option value="100">KC</option>
+                        <option value="75">KTC</option>
+                        <option value="25">TK</option>
+                    </select>
+                </td>
+                <td rowspan="3" id="final14"></td>
+            </tr>
+            <tr>
+                <td id="activity142">2</td>
+                <td><input id="status142" type="checkbox" onchange="statusChange('142')"></td>
+                <td id="temp142"></td>
+            </tr>
+            <tr>
+                <td id="activity143">3</td>
+                <td><input id="status143" type="checkbox" onchange="statusChange('143')"></td>
+                <td id="temp143"></td>
+            </tr>
+            <!--COSO15-->
+            <tr>
+                <td rowspan="3">5</td>
+                <td id="risk15" rowspan="3">M</td>
+                <td id="activity151">1</td>
+                <td><input id="status151" type="checkbox" onchange="statusChange('151')"></td>
+                <td id="temp151"></td>
+                <td rowspan="3">
+                    <select id="bukti15" onchange="buktiChange('15')" hidden>
+                        <option value="100">KC</option>
+                        <option value="75">KTC</option>
+                        <option value="25">TK</option>
+                    </select>
+                </td>
+                <td rowspan="3" id="final15"></td>
+            </tr>
+            <tr>
+                <td id="activity152">2</td>
+                <td><input id="status152" type="checkbox" onchange="statusChange('152')"></td>
+                <td id="temp152"></td>
+            </tr>
+            <tr>
+                <td id="activity153">3</td>
+                <td><input id="status153" type="checkbox" onchange="statusChange('153')"></td>
+                <td id="temp153"></td>
+            </tr>
+            <!--COSO16-->
+            <tr>
+                <td rowspan="3">6</td>
+                <td id="risk16" rowspan="3">L</td>
+                <td id="activity161">1</td>
+                <td><input id="status161" type="checkbox" onchange="statusChange('161')"></td>
+                <td id="temp161"></td>
+                <td rowspan="3">
+                    <select id="bukti16" onchange="buktiChange('16')" hidden>
+                        <option value="100">KC</option>
+                        <option value="75">KTC</option>
+                        <option value="25">TK</option>
+                    </select>
+                </td>
+                <td rowspan="3" id="final16"></td>
+            </tr>
+            <tr>
+                <td id="activity162">2</td>
+                <td><input id="status162" type="checkbox" onchange="statusChange('162')"></td>
+                <td id="temp162"></td>
+            </tr>
+            <tr>
+                <td id="activity163">3</td>
+                <td><input id="status163" type="checkbox" onchange="statusChange('163')"></td>
+                <td id="temp163"></td>
+            </tr>
+            <!--COSO17-->
+            <tr>
+                <td rowspan="3">7</td>
+                <td id="risk17" rowspan="3">L</td>
+                <td id="activity171">1</td>
+                <td><input id="status171" type="checkbox" onchange="statusChange('171')"></td>
+                <td id="temp171"></td>
+                <td rowspan="3">
+                    <select id="bukti17" onchange="buktiChange('17')" hidden>
+                        <option value="100">KC</option>
+                        <option value="75">KTC</option>
+                        <option value="25">TK</option>
+                    </select>
+                </td>
+                <td rowspan="3" id="final17"></td>
+            </tr>
+            <tr>
+                <td id="activity172">2</td>
+                <td><input id="status172" type="checkbox" onchange="statusChange('172')"></td>
+                <td id="temp172"></td>
+            </tr>
+            <tr>
+                <td id="activity173">3</td>
+                <td><input id="status173" type="checkbox" onchange="statusChange('173')"></td>
+                <td id="temp173"></td>
+            </tr>
+            <!--COSO21-->
+            <tr>
+                <td rowspan="3">2</td>
+                <td rowspan="3">1</td>
+                <td id="risk21" rowspan="3">M</td>
+                <td id="activity211">1</td>
+                <td><input id="status211" type="checkbox" onchange="statusChange('211')"></td>
+                <td id="temp211"></td>
+                <td rowspan="3">
+                    <select id="bukti21" onchange="buktiChange('21')" hidden>
+                        <option value="100">KC</option>
+                        <option value="75">KTC</option>
+                        <option value="25">TK</option>
+                    </select>
+                </td>
+                <td rowspan="3" id="final21"></td>
+            </tr>
+            <tr>
+                <td id="activity212">2</td>
+                <td><input id="status212" type="checkbox" onchange="statusChange('212')"></td>
+                <td id="temp212"></td>
+            </tr>
+            <tr>
+                <td id="activity213">3</td>
+                <td><input id="status213" type="checkbox" onchange="statusChange('213')"></td>
+                <td id="temp213"></td>
+            </tr>
+            <!--COSO31-->
+            <tr>
+                <td rowspan="15">3</td>
+                <td rowspan="3">1</td>
+                <td id="risk31" rowspan="3">MH</td>
+                <td id="activity311">1</td>
+                <td><input id="status311" type="checkbox" onchange="statusChange('311')"></td>
+                <td id="temp311"></td>
+                <td rowspan="3">
+                    <select id="bukti31" onchange="buktiChange('31')" hidden>
+                        <option value="100">KC</option>
+                        <option value="75">KTC</option>
+                        <option value="25">TK</option>
+                    </select>
+                </td>
+                <td rowspan="3" id="final31"></td>
+            </tr>
+            <tr>
+                <td id="activity312">2</td>
+                <td><input id="status312" type="checkbox" onchange="statusChange('312')"></td>
+                <td id="temp312"></td>
+            </tr>
+            <tr>
+                <td id="activity313">3</td>
+                <td><input id="status313" type="checkbox" onchange="statusChange('313')"></td>
+                <td id="temp313"></td>
+            </tr>
+            <!--COSO32-->
+            <tr>
+                <td rowspan="3">2</td>
+                <td id="risk32" rowspan="3">M</td>
+                <td id="activity321">1</td>
+                <td><input id="status321" type="checkbox" onchange="statusChange('321')"></td>
+                <td id="temp321"></td>
+                <td rowspan="3">
+                    <select id="bukti32" onchange="buktiChange('32')" hidden>
+                        <option value="100">KC</option>
+                        <option value="75">KTC</option>
+                        <option value="25">TK</option>
+                    </select>
+                </td>
+                <td rowspan="3" id="final32"></td>
+            </tr>
+            <tr>
+                <td id="activity322">2</td>
+                <td><input id="status322" type="checkbox" onchange="statusChange('322')"></td>
+                <td id="temp322"></td>
+            </tr>
+            <tr>
+                <td id="activity323">3</td>
+                <td><input id="status323" type="checkbox" onchange="statusChange('323')"></td>
+                <td id="temp323"></td>
+            </tr>
+            <!--COSO33-->
+            <tr>
+                <td rowspan="3">3</td>
+                <td id="risk33" rowspan="3">M</td>
+                <td id="activity331">1</td>
+                <td><input id="status331" type="checkbox" onchange="statusChange('331')"></td>
+                <td id="temp331"></td>
+                <td rowspan="3">
+                    <select id="bukti33" onchange="buktiChange('33')" hidden>
+                        <option value="100">KC</option>
+                        <option value="75">KTC</option>
+                        <option value="25">TK</option>
+                    </select>
+                </td>
+                <td rowspan="3" id="final33"></td>
+            </tr>
+            <tr>
+                <td id="activity332">2</td>
+                <td><input id="status332" type="checkbox" onchange="statusChange('332')"></td>
+                <td id="temp332"></td>
+            </tr>
+            <tr>
+                <td id="activity333">3</td>
+                <td><input id="status333" type="checkbox" onchange="statusChange('333')"></td>
+                <td id="temp333"></td>
+            </tr>
+            <!--COSO34-->
+            <tr>
+                <td rowspan="3">4</td>
+                <td id="risk34" rowspan="3">L</td>
+                <td id="activity341">1</td>
+                <td><input id="status341" type="checkbox" onchange="statusChange('341')"></td>
+                <td id="temp341"></td>
+                <td rowspan="3">
+                    <select id="bukti34" onchange="buktiChange('34')" hidden>
+                        <option value="100">KC</option>
+                        <option value="75">KTC</option>
+                        <option value="25">TK</option>
+                    </select>
+                </td>
+                <td rowspan="3" id="final34"></td>
+            </tr>
+            <tr>
+                <td id="activity342">2</td>
+                <td><input id="status342" type="checkbox" onchange="statusChange('342')"></td>
+                <td id="temp342"></td>
+            </tr>
+            <tr>
+                <td id="activity343">3</td>
+                <td><input id="status343" type="checkbox" onchange="statusChange('343')"></td>
+                <td id="temp343"></td>
+            </tr>
+            <!--COSO35-->
+            <tr>
+                <td rowspan="3">5</td>
+                <td id="risk35" rowspan="3">M</td>
+                <td id="activity351">1</td>
+                <td><input id="status351" type="checkbox" onchange="statusChange('351')"></td>
+                <td id="temp351"></td>
+                <td rowspan="3">
+                    <select id="bukti35" onchange="buktiChange('35')" hidden>
+                        <option value="100">KC</option>
+                        <option value="75">KTC</option>
+                        <option value="25">TK</option>
+                    </select>
+                </td>
+                <td rowspan="3" id="final35"></td>
+            </tr>
+            <tr>
+                <td id="activity352">2</td>
+                <td><input id="status352" type="checkbox" onchange="statusChange('352')"></td>
+                <td id="temp352"></td>
+            </tr>
+            <tr>
+                <td id="activity353">3</td>
+                <td><input id="status353" type="checkbox" onchange="statusChange('353')"></td>
+                <td id="temp353"></td>
+            </tr>
+            <!--COSO41-->
+            <tr>
+                <td rowspan="6">4</td>
+                <td rowspan="3">1</td>
+                <td id="risk41" rowspan="3">M</td>
+                <td id="activity411">1</td>
+                <td><input id="status411" type="checkbox" onchange="statusChange('411')"></td>
+                <td id="temp411"></td>
+                <td rowspan="3">
+                    <select id="bukti41" onchange="buktiChange('41')" hidden>
+                        <option value="100">KC</option>
+                        <option value="75">KTC</option>
+                        <option value="25">TK</option>
+                    </select>
+                </td>
+                <td rowspan="3" id="final41"></td>
+            </tr>
+            <tr>
+                <td id="activity412">2</td>
+                <td><input id="status412" type="checkbox" onchange="statusChange('412')"></td>
+                <td id="temp412"></td>
+            </tr>
+            <tr>
+                <td id="activity413">3</td>
+                <td><input id="status413" type="checkbox" onchange="statusChange('413')"></td>
+                <td id="temp413"></td>
+            </tr>
+            <!--COSO42-->
+            <tr>
+                <td rowspan="3">2</td>
+                <td id="risk42" rowspan="3">L</td>
+                <td id="activity421">1</td>
+                <td><input id="status421" type="checkbox" onchange="statusChange('421')"></td>
+                <td id="temp421"></td>
+                <td rowspan="3">
+                    <select id="bukti42" onchange="buktiChange('42')" hidden>
+                        <option value="100">KC</option>
+                        <option value="75">KTC</option>
+                        <option value="25">TK</option>
+                    </select>
+                </td>
+                <td rowspan="3" id="final42"></td>
+            </tr>
+            <tr>
+                <td id="activity422">2</td>
+                <td><input id="status422" type="checkbox" onchange="statusChange('422')"></td>
+                <td id="temp422"></td>
+            </tr>
+            <tr>
+                <td id="activity423">3</td>
+                <td><input id="status423" type="checkbox" onchange="statusChange('423')"></td>
+                <td id="temp423"></td>
+            </tr>
+            <!--COSO51-->
+            <tr>
+                <td rowspan="6">5</td>
+                <td rowspan="3">1</td>
+                <td id="risk51" rowspan="3">H</td>
+                <td id="activity511">1</td>
+                <td><input id="status511" type="checkbox" onchange="statusChange('511')"></td>
+                <td id="temp511"></td>
+                <td rowspan="3">
+                    <select id="bukti51" onchange="buktiChange('51')" hidden>
+                        <option value="100">KC</option>
+                        <option value="75">KTC</option>
+                        <option value="25">TK</option>
+                    </select>
+                </td>
+                <td rowspan="3" id="final51"></td>
+            </tr>
+            <tr>
+                <td id="activity512">2</td>
+                <td><input id="status512" type="checkbox" onchange="statusChange('512')"></td>
+                <td id="temp512"></td>
+            </tr>
+            <tr>
+                <td id="activity513">3</td>
+                <td><input id="status513" type="checkbox" onchange="statusChange('513')"></td>
+                <td id="temp513"></td>
+            </tr>
+            <!--COSO52-->
+            <tr>
+                <td rowspan="3">2</td>
+                <td id="risk52" rowspan="3">M</td>
+                <td id="activity521">1</td>
+                <td><input id="status521" type="checkbox" onchange="statusChange('521')"></td>
+                <td id="temp521"></td>
+                <td rowspan="3">
+                    <select id="bukti52" onchange="buktiChange('52')" hidden>
+                        <option value="100">KC</option>
+                        <option value="75">KTC</option>
+                        <option value="25">TK</option>
+                    </select>
+                </td>
+                <td rowspan="3" id="final52"></td>
+            </tr>
+            <tr>
+                <td id="activity522">2</td>
+                <td><input id="status522" type="checkbox" onchange="statusChange('522')"></td>
+                <td id="temp522"></td>
+            </tr>
+            <tr>
+                <td id="activity523">3</td>
+                <td><input id="status523" type="checkbox" onchange="statusChange('523')"></td>
+                <td id="temp523"></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
