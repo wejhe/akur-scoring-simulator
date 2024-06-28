@@ -80,86 +80,10 @@ function statusChange(itemNo) {
     const status = document.getElementById("status" + itemNo).checked;
     let score = document.getElementById("temp" + itemNo);
 
-    if (risk == "H") {
-        if (activity == "1") {
-            if (status == true) {
-                score.innerText = Scores.h1;
-            } else {
-                score.innerText = parseInt(Scores.h1) / 2;
-            }
-        } else if (activity == "2") {
-            if (status == true) {
-                score.innerText = Scores.h2;
-            } else {
-                score.innerText = parseInt(Scores.h2) / 2;
-            }
-        } else if (activity == "3") {
-            if (status == true) {
-                score.innerText = Scores.h3;
-            } else {
-                score.innerText = parseInt(Scores.h3) / 2;
-            }
-        }
-    } else if (risk == "MH") {
-        if (activity == "1") {
-            if (status == true) {
-                score.innerText = Scores.mh1;
-            } else {
-                score.innerText = parseInt(Scores.mh1) / 2;
-            }
-        } else if (activity == "2") {
-            if (status == true) {
-                score.innerText = Scores.mh2;
-            } else {
-                score.innerText = parseInt(Scores.mh2) / 2;
-            }
-        } else if (activity == "3") {
-            if (status == true) {
-                score.innerText = Scores.mh3;
-            } else {
-                score.innerText = parseInt(Scores.mh3) / 2;
-            }
-        }
-    } else if (risk == "M") {
-        if (activity == "1") {
-            if (status == true) {
-                score.innerText = Scores.m1;
-            } else {
-                score.innerText = parseInt(Scores.m1) / 2;
-            }
-        } else if (activity == "2") {
-            if (status == true) {
-                score.innerText = Scores.m2;
-            } else {
-                score.innerText = parseInt(Scores.m2) / 2;
-            }
-        } else if (activity == "3") {
-            if (status == true) {
-                score.innerText = Scores.m3;
-            } else {
-                score.innerText = parseInt(Scores.m3) / 2;
-            }
-        }
-    } else if (risk == "L") {
-        if (activity == "1") {
-            if (status == true) {
-                score.innerText = Scores.l1;
-            } else {
-                score.innerText = parseInt(Scores.l1) / 2;
-            }
-        } else if (activity == "2") {
-            if (status == true) {
-                score.innerText = Scores.l2;
-            } else {
-                score.innerText = parseInt(Scores.l2) / 2;
-            }
-        } else if (activity == "3") {
-            if (status == true) {
-                score.innerText = Scores.l3;
-            } else {
-                score.innerText = parseInt(Scores.l3) / 2;
-            }
-        }
+    if (status === true) {
+        score.innerText = 1;
+    } else {
+        score.innerText = 0;
     }
 
     const status1 = document.getElementById("status" + itemNo[0] + itemNo[1] + "1").checked;
@@ -167,21 +91,30 @@ function statusChange(itemNo) {
     const status3 = document.getElementById("status" + itemNo[0] + itemNo[1] + "3").checked;
     const bukti = document.getElementById("bukti" + itemNo[0] + itemNo[1]);
 
-    if (mandatoryItems.includes(parseInt(itemNo[0] + itemNo[1]))) {
+    //if (mandatoryItems.includes(parseInt(itemNo[0] + itemNo[1]))) {
         if (status1 == true || status2 == true || status3 == true) {
             bukti.removeAttribute("hidden");
         } else {
             bukti.setAttribute("hidden", true);
         }
-    }
+    //}
 
     const score1 = document.getElementById("temp" + itemNo[0] + itemNo[1] + "1").innerText;
     const score2 = document.getElementById("temp" + itemNo[0] + itemNo[1] + "2").innerText;
     const score3 = document.getElementById("temp" + itemNo[0] + itemNo[1] + "3").innerText;
+    const scoresArr = [score1, score2, score3];
     let final = document.getElementById("final" + itemNo[0] + itemNo[1]);
 
-    final.innerText = parseFloat(score1) + parseFloat(score2) + parseFloat(score3);
-    finalScore[itemNo[0] + itemNo[1]] = parseFloat(score1) + parseFloat(score2) + parseFloat(score3);
+    if (scoresArr.includes("0")) {
+        final.innerText = "0";
+        finalScore[itemNo[0] + itemNo[1]] = "0";
+    } else {
+        final.innerText = "1";
+        finalScore[itemNo[0] + itemNo[1]] = "1";
+    }
+
+    //final.innerText = parseFloat(score1) + parseFloat(score2) + parseFloat(score3);
+    //finalScore[itemNo[0] + itemNo[1]] = parseFloat(score1) + parseFloat(score2) + parseFloat(score3);
 
     buktiChange(itemNo[0] + itemNo[1]);
 }
@@ -193,15 +126,173 @@ function buktiChange(itemNo) {
         final.innerText = finalScore[itemNo];
     } else {
         const selected = document.getElementById("bukti" + itemNo).value;
-        final.innerText = finalScore[itemNo] * parseInt(selected) / 100;
+        if (selected === "25") {
+            final.innerText = "0";
+            finalScore[itemNo[0] + itemNo[1]] = "0";
+        } else {
+            final.innerText = "1";
+            finalScore[itemNo[0] + itemNo[1]] = "1";
+        }
     }
 
     updateSkor();
 }
 
 function updateSkor() {
-    let result = 0;
+    let resultH = 0;
+    let resultMH = 0;
+    let resultM = 0;
+    let resultLM = 0;
+    let resultL = 0;
+
     skorsToUpdate.forEach(skor => {
+        let finalSkor = document.getElementById("final" + skor).innerText;
+        let risk = document.getElementById("risk" + skor).innerText;
+
+        if (finalSkor === "0") {
+            if (risk === "H") {
+                resultH++;
+            } else if (risk === "MH") {
+                resultMH++;
+            } else if (risk === "M") {
+                resultM++;
+            } else if (risk === "LM") {
+                resultLM++;
+            } else if (risk === "L") {
+                resultL++;
+            }
+        }
+    })
+
+    document.getElementById("temuan").innerHTML = `${resultH} H<br>${resultMH} MH<br>${resultM} M<br>${resultLM} LM<br>${resultL} L`;
+
+    const kategori = document.getElementById("kategori").value;
+
+    let riskProfile = [];
+
+    if (kategori === "besar") {
+        if (resultH > 0) {
+            riskProfile.push(1);
+        } else {
+            riskProfile.push(5);
+        }
+
+        if (resultMH === 0) {
+            riskProfile.push(5);
+        } else if (resultMH === 1) {
+            riskProfile.push(4);
+        } else if (resultMH === 2) {
+            riskProfile.push(3);
+        } else if (resultMH === 3) {
+            riskProfile.push(2);
+        } else if (resultMH >= 4) {
+            riskProfile.push(1);
+        }
+
+        if (resultM <= 3) {
+            riskProfile.push(5);
+        } else if (resultM === 4) {
+            riskProfile.push(4);
+        } else if (resultM === 5) {
+            riskProfile.push(3);
+        } else if (resultM === 6) {
+            riskProfile.push(2);
+        } else if (resultM >= 7) {
+            riskProfile.push(1);
+        }
+
+        if (resultLM <= 6) {
+            riskProfile.push(5);
+        } else if (resultLM === 7) {
+            riskProfile.push(4);
+        } else if (resultLM === 8) {
+            riskProfile.push(3);
+        } else if (resultLM === 9) {
+            riskProfile.push(2);
+        } else if (resultLM >= 10) {
+            riskProfile.push(1);
+        }
+
+        if (resultL <= 4) {
+            riskProfile.push(5);
+        } else if (resultL === 5) {
+            riskProfile.push(4);
+        } else if (resultL === 6) {
+            riskProfile.push(3);
+        } else if (resultL === 7) {
+            riskProfile.push(2);
+        } else if (resultL >= 8) {
+            riskProfile.push(1);
+        }
+    } else if (kategori === "kecil") {
+        if (resultH > 0) {
+            riskProfile.push(1);
+        }
+
+        if (resultMH === 0) {
+            riskProfile.push(5);
+        } else if (resultMH === 1) {
+            riskProfile.push(3);
+        } else if (resultMH === 2) {
+            riskProfile.push(2);
+        } else if (resultMH >= 3) {
+            riskProfile.push(1);
+        }
+
+        if (resultM <= 2) {
+            riskProfile.push(5);
+        } else if (resultM === 3) {
+            riskProfile.push(4);
+        } else if (resultM === 4) {
+            riskProfile.push(3);
+        } else if (resultM === 5) {
+            riskProfile.push(2);
+        } else if (resultM >= 6) {
+            riskProfile.push(1);
+        }
+
+        if (resultLM <= 4) {
+            riskProfile.push(5);
+        } else if (resultLM === 5) {
+            riskProfile.push(4);
+        } else if (resultLM === 6) {
+            riskProfile.push(3);
+        } else if (resultLM === 7) {
+            riskProfile.push(2);
+        } else if (resultLM >= 8) {
+            riskProfile.push(1);
+        }
+
+        if (resultL <= 4) {
+            riskProfile.push(5);
+        } else if (resultL === 5) {
+            riskProfile.push(4);
+        } else if (resultL === 6) {
+            riskProfile.push(3);
+        } else if (resultL === 7) {
+            riskProfile.push(2);
+        } else if (resultL >= 8) {
+            riskProfile.push(1);
+        }
+    }
+
+    riskProfile.sort();
+
+    const profilRisiko = document.getElementById("profilRisiko");
+
+    if (riskProfile[0] === 5) {
+        profilRisiko.innerText = "SANGAT BAIK";
+    } else if (riskProfile[0] === 4) {
+        profilRisiko.innerText = "BAIK";
+    } else if (riskProfile[0] === 3) {
+        profilRisiko.innerText = "CUKUP BAIK";
+    } else if (riskProfile[0] === 2) {
+        profilRisiko.innerText = "KURANG BAIK";
+    } else if (riskProfile[0] === 1) {
+        profilRisiko.innerText = "TIDAK BAIK";
+    }
+
+    /*skorsToUpdate.forEach(skor => {
         let finalSkor = document.getElementById("final" + skor).innerText;
         result += parseFloat(finalSkor);
     })
@@ -219,5 +310,5 @@ function updateSkor() {
         profilRisiko.innerText = "TIDAK BAIK"; //Batas if all Tidak Koheren
     } else if (result >= 565 && result < 702.5) {
         profilRisiko.innerText = "BURUK"; //sisa bawah
-    }
+    }*/
 }

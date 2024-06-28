@@ -20,8 +20,7 @@
             position: fixed;
             top: 8px;
             right: 8px;
-            width: 500px;
-            height: 100px;
+            width: 400px;
         }
 
         .fixed-table th, .fixed-table td {
@@ -31,15 +30,20 @@
     <table class="fixed-table">
         <thead>
             <tr>
-                <th scope="col">Skor Akhir</th>
-                <th scope="col">Persentase</th>
+                <th scope="col">Temuan</th>
+                <th scope="col">Kategori</th>
                 <th scope="col">Profil Risiko</th>
             </tr>
         </thead>
         <tbody>
             <tr>
-                <td id="skorAkhir"></td>
-                <td id="persentase"></td>
+                <td id="temuan"></td>
+                <td>
+                    <select id="kategori" style="width: 80%; height: 32px;" onchange="updateSkor()">
+                        <option value="besar">KC BESAR</option>
+                        <option value="kecil">KC KECIL</option>
+                    </select>
+                </td>
                 <td id="profilRisiko"></td>
             </tr>
         </tbody>
