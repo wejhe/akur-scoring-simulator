@@ -129,10 +129,10 @@ function buktiChange(itemNo) {
         if (selected === "25") {
             final.innerText = "0";
             finalScore[itemNo[0] + itemNo[1]] = "0";
-        } else {
+        } /*else {
             final.innerText = "1";
             finalScore[itemNo[0] + itemNo[1]] = "1";
-        }
+        }*/
     }
 
     updateSkor();
