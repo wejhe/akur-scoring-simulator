@@ -213,15 +213,15 @@ function updateSkor() {
             riskProfile.push(1);
         }
 
-        if (resultL <= 4) {
+        if (resultL <= 9) {
             riskProfile.push(5);
-        } else if (resultL === 5) {
+        } else if (resultL === 10) {
             riskProfile.push(4);
-        } else if (resultL === 6) {
+        } else if (resultL === 11) {
             riskProfile.push(3);
-        } else if (resultL === 7) {
+        } else if (resultL === 12) {
             riskProfile.push(2);
-        } else if (resultL >= 8) {
+        } else if (resultL >= 13) {
             riskProfile.push(1);
         }
     } else if (kategori === "kecil") {
@@ -263,15 +263,15 @@ function updateSkor() {
             riskProfile.push(1);
         }
 
-        if (resultL <= 4) {
+        if (resultL <= 6) {
             riskProfile.push(5);
-        } else if (resultL === 5) {
-            riskProfile.push(4);
-        } else if (resultL === 6) {
-            riskProfile.push(3);
         } else if (resultL === 7) {
+            riskProfile.push(4);
+        } else if (resultL === 8) {
+            riskProfile.push(3);
+        } else if (resultL === 9) {
             riskProfile.push(2);
-        } else if (resultL >= 8) {
+        } else if (resultL >= 10) {
             riskProfile.push(1);
         }
     }
